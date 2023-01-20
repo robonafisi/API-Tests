@@ -15,28 +15,29 @@ export async function getServerSideProps() {
     }
   };
 
-  axios(config)
-  .then(function (response) {
-    const data = JSON.stringify(response.data);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
 
-  //const data = JSON.stringify(response.data);
+  const followers = await axios(config);
+
+  const datathis = followers.data.data;
+
   return{
     props:{
-      data
-    }
-  }
+      datathis
+    },
+  };
 }
 
-export default function Home({ data}) {
+export default function Home({ datathis }) {
   
-  console.log("WoWwwwwwwwwwwwwwww", data);
   return (
     <div>
-      
+      <h1>My Twitter Followers:</h1>
+      {datathis.map(follower =>{
+        const { id, name, username } = follower;
+        return(
+          <p>{name}</p>
+        )
+      })}
     </div>
   )
 }
