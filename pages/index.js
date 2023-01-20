@@ -1,16 +1,14 @@
 import { React, useState, useEffect } from 'react';
 
-const default_endpoint = 'https://api.twitter.com/2/users/:id/followers';
-
 export async function getServerSideProps() {
-
+  console.log("Hello",process.env.brearer_token)
   var axios = require('axios');
 
   var config = {
     method: 'get',
     url: 'https://api.twitter.com/2/users/1264069561869049856/followers',
     headers: { 
-      'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAANIplQEAAAAAnCU9cx3hmSwQdoGbed3%2Bc6uOeIY%3D2wj9XP0PoJz8ZYdtzQHWJ6pe6Ocm6IR3XDeQsIZRyn4gkFFzxz', 
+      'Authorization': process.env.brearer_token, 
       'Cookie': 'guest_id=v1%3A167404021070772330'
     }
   };
@@ -28,14 +26,14 @@ export async function getServerSideProps() {
 }
 
 export default function Home({ datathis }) {
-  
+  console.log("Hello")
   return (
     <div>
       <h1>My Twitter Followers:</h1>
       {datathis.map(follower =>{
         const { id, name, username } = follower;
         return(
-          <p>{name}</p>
+          <p>{name} {username}</p>
         )
       })}
     </div>
